@@ -1,0 +1,9 @@
+cat > /etc/iscsi/initiatorname.iscsi << EOF
+InitiatorName=iqn.2014-06.com.example:vm2
+EOF
+systemctl restart iscsid
+systemctl restart iscsi
+systemctl enable iscsid
+systemctl enable iscsi
+iscsiadm -m discovery -t sendtargets -p 10.0.0.100:3260
+iscsiadm -m node -T iqn.2014-06.com.example:remotedisk1 -p 10.0.0.100:3260 -l
