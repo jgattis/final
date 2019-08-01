@@ -1,0 +1,9 @@
+mkdir /testdir
+yum -y install samba-client cifs-utils
+mount -o username=uone,password=Pa11word //vm1/smbshare /testdir
+touch ~/smb-cred.txt
+chmod 600 ~/smb-cred.txt
+cat > ~/smb-cred.txt << EOF
+username=uone
+password=Pa11word
+EOF
