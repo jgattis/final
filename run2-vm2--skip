@@ -1,0 +1,17 @@
+### Type this part out
+
+
+ausearch -c 'unbound' --raw | audit2allow -M my-unbound
+semodule -i my-unbound.pp
+systemctl enable unbound
+systemctl enable unbound
+cd /etc/unbound/
+rm -y unbound.conf
+wget https://raw.githubusercontent.com/jgattis/Linux/master/unbound.conf
+cd ~
+systemctl restart unbound
+firewall-cmd --zone=public --add-service=dns --permanent
+firewall-cmd --reload
+nmcli con mod static ipv4.dns 127.0.0.1
+nmcli con down static
+nmcli con up static
