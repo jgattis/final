@@ -1,0 +1,8 @@
+nmcli con add type team con-name team0 ifname team0 config '{"runner": {"name": "loadbalance"}}' ipv4.addresses 10.0.0.100/24 ipv4.method manual gw4 10.0.0.1 ipv4.dns 10.13.2.5,10.13.2.7
+nmcli con add type team-slave ifname eth0 master team0
+nmcli con add type team-slave ifname eth1 master team0
+nmcli con mod eth0 autoconnect no
+hostnamectl set-hostname vm1.contoso.com
+echo 127.0.0.1 vm1.contoso.com vm1 >> /etc/hosts
+echo 10.0.0.101 vm2.contoso.com vm2 >> /etc/hosts
+reboot
