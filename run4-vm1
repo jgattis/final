@@ -1,0 +1,9 @@
+cat > /etc/exports <<EOF
+/nfsshare *.contoso.com(rw,no_root_squash)
+EOF
+systemctl start nfs-server
+systemctl enable nfs-server
+mkdir /nfsshare
+firewall-cmd --permanent --add-service=nfs
+firewall-cmd --reload
+exportfs -r
